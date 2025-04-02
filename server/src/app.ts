@@ -5,6 +5,9 @@ import express from "express";
 const app = express();
 
 // Configure it
+import cookieParser from "cookie-parser";
+
+app.use(cookieParser());
 
 /* ************************************************************************* */
 
@@ -26,13 +29,11 @@ if (process.env.CLIENT_URL != null) {
 
 // If you need to allow extra origins, you can add something like this:
 
-/*
 app.use(
   cors({
     origin: ["http://mysite.com", "http://another-domain.com"],
   }),
 );
-*/
 
 // With ["http://mysite.com", "http://another-domain.com"]
 // to be replaced with an array of your trusted origins
@@ -52,7 +53,7 @@ app.use(
 
 // Uncomment one or more of these options depending on the format of the data sent by your client:
 
-// app.use(express.json());
+app.use(express.json());
 // app.use(express.urlencoded());
 // app.use(express.text());
 // app.use(express.raw());

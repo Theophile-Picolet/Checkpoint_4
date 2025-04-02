@@ -1,17 +1,24 @@
 import express from "express";
+import auth from "./middlewares/auth";
 
 const router = express.Router();
 
 /* ************************************************************************* */
-// Define Your API Routes Here
-/* ************************************************************************* */
 
 // Define item-related routes
-import itemActions from "./modules/item/itemActions";
+import userActions from "./modules/user/userActions";
 
-router.get("/api/items", itemActions.browse);
-router.get("/api/items/:id", itemActions.read);
-router.post("/api/items", itemActions.add);
+router.get("/api/user", auth.verify, auth.checkIfAdmin, userActions.browse);
+router.get("/api/user/:id", auth.verify, userActions.read);
+router.post("/api/user", auth.hashPassword, userActions.add);
+router.post("/api/login", auth.login);
+router.put("/api/user/:id", auth.verify, auth.checkIfAdmin, userActions.edit);
+router.delete(
+  "/api/user/:id",
+  auth.verify,
+  auth.checkIfAdmin,
+  userActions.destroy,
+);
 
 /* ************************************************************************* */
 

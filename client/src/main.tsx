@@ -7,6 +7,11 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 // Import the main app component
 import App from "./App";
+import Dashboard from "./pages/Dashboard";
+import ErrorPage from "./pages/ErrorPage";
+import HomePage from "./pages/HomePage";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
@@ -20,8 +25,14 @@ import App from "./App";
 // You can add more routes as you build out your app!
 const router = createBrowserRouter([
   {
-    path: "/", // The root path
     element: <App />, // Renders the App component for the home page
+    errorElement: <ErrorPage />,
+    children: [
+      { path: "/", element: <HomePage /> },
+      { path: "/dashboard", element: <Dashboard /> },
+      { path: "/signup", element: <Signup /> },
+      { path: "/login", element: <Login /> },
+    ],
   },
   // Try adding a new route! For example, "/about" with an About component
 ]);
@@ -38,31 +49,30 @@ if (rootElement == null) {
 createRoot(rootElement).render(
   <StrictMode>
     <RouterProvider router={router} />
-  </StrictMode>
+  </StrictMode>,
 );
 
 /**
  * Helpful Notes:
- * 
+ *
  * 1. Adding More Routes:
  *    To add more pages to your app, first create a new component (e.g., About.tsx).
  *    Then, import that component above like this:
- * 
+ *
  *    import About from "./pages/About";
- * 
+ *
  *    Add a new route to the router:
- * 
+ *
  *      {
  *        path: "/about",
  *        element: <About />,  // Renders the About component
  *      }
- * 
+ *
  * 2. Try Nested Routes:
  *    For more complex applications, you can nest routes. This lets you have sub-pages within a main page.
  *    Documentation: https://reactrouter.com/en/main/start/tutorial#nested-routes
- * 
+ *
  * 3. Experiment with Dynamic Routes:
  *    You can create routes that take parameters (e.g., /users/:id).
  *    Documentation: https://reactrouter.com/en/main/start/tutorial#url-params-in-loaders
  */
-
