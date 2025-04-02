@@ -43,7 +43,7 @@ CREATE TABLE Cepage (
     id SERIAL PRIMARY KEY,
     nom VARCHAR(50) UNIQUE
 );
-CREATE TABLE Vin_Cepage (
+CREATE TABLE VinCepage (
     vin_id INT REFERENCES Vin(id) ON DELETE CASCADE,
     cepage_id INT REFERENCES Cepage(id) ON DELETE CASCADE,
     proportion DECIMAL(5,2) CHECK (proportion >= 0 AND proportion <= 100),
@@ -72,7 +72,7 @@ CREATE TABLE DetailCommande (
       ;
        INSERT INTO Cepage (nom) VALUES ('Syrah'), ('Viognier'), ('Marsanne'), ('Roussanne')
       ;
-INSERT INTO Vin_Cepage (vin_id, cepage_id, proportion)
+INSERT INTO VinCepage (vin_id, cepage_id, proportion)
       VALUES 
       (1, 1, 89.00), (1, 2, 11.00),
       (2, 1, 93.00), (2, 2, 7.00),
@@ -81,11 +81,11 @@ INSERT INTO Vin_Cepage (vin_id, cepage_id, proportion)
       (5, 2, 100.00),
       (6, 3, 65.00), (6, 4, 35.00)
       ;
-      INSERT INTO Visite (type, description) 
+      INSERT INTO Visite (type, description, prix) 
       VALUES 
-      ('Visite des vignes du domaine', 'Découverte du terroir et des parcelles emblématiques.'),
-      ('Visite des caves', 'Immersion dans les caves pour comprendre l’élevage des vins.'),
-      ('Visite vignes et caves', 'Expérience complète : vignoble, caves et dégustation incluse.')
+      ('Visite des vignes du domaine', 'Découverte du terroir et des parcelles emblématiques.',25),
+      ('Visite des caves', 'Immersion dans les caves pour comprendre l’élevage des vins.',25),
+      ('Visite vignes et caves', 'Expérience complète : vignoble, caves et dégustation incluse.',65)
       ;
        INSERT INTO Degustation (description, prix) 
       VALUES 
