@@ -80,16 +80,17 @@ const destroy: RequestHandler = async (req, res, next) => {
   }
 };
 
-const getPrixTotal: RequestHandler = async (req, res, next) => {
-  try {
-    const commandeId = Number(req.params.id);
-    const prixTotal =
-      await detailCommandeRepository.getPrixTotalByCommandeId(commandeId);
+// const getPrixTotal: RequestHandler = async (req, res, next) => {
+//   try {
+//     const commandeId = Number(req.params.id);
+//     const prixTotal =
+//       await detailCommandeRepository.getPrixTotalByCommandeId(commandeId);
 
-    res.status(200).json({ commande_id: commandeId, prix_total: prixTotal });
-  } catch (err) {
-    next(err);
-  }
-};
+//     res.status(200).json({ commande_id: commandeId, prix_total: prixTotal });
+//   } catch (err) {
+//     next(err);
+//   }
+// };
 
-export default { add, getVins, browse, getPrixTotal, edit, destroy };
+export default { add, getVins, browse, edit, destroy };
+// getPrixTotal

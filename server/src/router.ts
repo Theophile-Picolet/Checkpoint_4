@@ -200,12 +200,12 @@ router.get(
   auth.checkIfAdminOrUser,
   detailCommandeAction.browse,
 );
-router.get(
-  "/api/panier/:id/prix",
-  auth.verify,
-  auth.checkIfAdminOrUser,
-  detailCommandeAction.getPrixTotal,
-);
+// router.get(
+//   "/api/panier/:id/prix",
+//   auth.verify,
+//   auth.checkIfAdminOrUser,
+//   detailCommandeAction.getPrixTotal,
+// );
 
 router.post(
   "/api/panier",

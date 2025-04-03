@@ -63,24 +63,24 @@ class DetailCommandeRepository {
     return result.affectedRows;
   }
 
-  async getPrixTotalByCommandeId(commandeId: number): Promise<number> {
-    const [rows] = await databaseClient.query(
-      `SELECT 
-          SUM(dc.quantite * v.prix) AS prix_total
-       FROM 
-          DetailCommande dc
-       JOIN 
-          Vin v ON dc.vin_id = v.id
-       WHERE 
-          dc.commande_id = ?
-       GROUP BY 
-          dc.commande_id`,
-      [commandeId],
-    );
+  //   async getPrixTotalByCommandeId(commandeId: number): Promise<number> {
+  //     const [rows] = await databaseClient.query(
+  //       `SELECT
+  //           SUM(dc.quantite * v.prix) AS prix_total
+  //        FROM
+  //           DetailCommande dc
+  //        JOIN
+  //           Vin v ON dc.vin_id = v.id
+  //        WHERE
+  //           dc.commande_id = ?
+  //        GROUP BY
+  //           dc.commande_id`,
+  //       [commandeId],
+  //     );
 
-    // Retourne le prix total ou 0 si aucune ligne n'est trouvée
-    return (rows[0]?.prix_total as number) || 0;
-  }
+  //     // Retourne le prix total ou 0 si aucune ligne n'est trouvée
+  //     return (rows[0]?.prix_total as number) || 0;
+  //   }
 }
 
 export default new DetailCommandeRepository();
