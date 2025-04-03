@@ -43,7 +43,7 @@ CREATE TABLE Cepage (
     id SERIAL PRIMARY KEY,
     nom VARCHAR(50) UNIQUE
 );
-CREATE TABLE Vin_Cepage (
+CREATE TABLE VinCepage (
     vin_id INT REFERENCES Vin(id) ON DELETE CASCADE,
     cepage_id INT REFERENCES Cepage(id) ON DELETE CASCADE,
     proportion DECIMAL(5,2) CHECK (proportion >= 0 AND proportion <= 100),
@@ -56,10 +56,10 @@ CREATE TABLE Commande (
     user_id INT REFERENCES User(id) ON DELETE CASCADE
 );
 CREATE TABLE DetailCommande (
-    id SERIAL PRIMARY KEY,
     commande_id INT REFERENCES Commande(id) ON DELETE CASCADE,
     vin_id INT REFERENCES Vin(id) ON DELETE CASCADE,
-    quantite INT CHECK (quantite > 0)
+    quantite INT CHECK (quantite > 0),
+    PRIMARY KEY (commande_id, vin_id)
 );
  INSERT INTO Vin (type, appellation, nom, millesime, alcoometrie, description, prix, accordMet, temperatureDegustation, elevage)
       VALUES 
@@ -72,20 +72,23 @@ CREATE TABLE DetailCommande (
       ;
        INSERT INTO Cepage (nom) VALUES ('Syrah'), ('Viognier'), ('Marsanne'), ('Roussanne')
       ;
-INSERT INTO Vin_Cepage (vin_id, cepage_id, proportion)
+INSERT INTO VinCepage (vin_id, cepage_id, proportion)
       VALUES 
-      (1, 1, 89.00), (1, 2, 11.00),
-      (2, 1, 93.00), (2, 2, 7.00),
+      (1, 1, 89.00), 
+      (1, 2, 11.00), 
+      (2, 1, 93.00), 
+      (2, 2, 7.00),
       (3, 1, 100.00),
       (4, 1, 100.00),
       (5, 2, 100.00),
-      (6, 3, 65.00), (6, 4, 35.00)
+      (6, 3, 65.00), 
+      (6, 4, 35.00)
       ;
-      INSERT INTO Visite (type, description) 
+      INSERT INTO Visite (type, description, prix) 
       VALUES 
-      ('Visite des vignes du domaine', 'Découverte du terroir et des parcelles emblématiques.'),
-      ('Visite des caves', 'Immersion dans les caves pour comprendre l’élevage des vins.'),
-      ('Visite vignes et caves', 'Expérience complète : vignoble, caves et dégustation incluse.')
+      ('Visite des vignes du domaine', 'Découverte du terroir et des parcelles emblématiques.',25),
+      ('Visite des caves', 'Immersion dans les caves pour comprendre l’élevage des vins.',25),
+      ('Visite vignes et caves', 'Expérience complète : vignoble, caves et dégustation incluse.',65)
       ;
        INSERT INTO Degustation (description, prix) 
       VALUES 
@@ -97,4 +100,13 @@ INSERT INTO Vin_Cepage (vin_id, cepage_id, proportion)
 VALUES
 ("Théo", "Phile", "theo@gmail.com",  "0665875421","$argon2id$v=19$m=19456,t=2,p=1$RfhFF2DWhTNEopSJ6V8zSQ$OUgaTyhqz7yXUbAwhMtQbM9ly6fwbKttf5ACKaxQ2Jc", "administrateur"),
 ("Chris", "Tophe", "chris@gmail.com",  "0665455421","$argon2id$v=19$m=19456,t=2,p=1$RfhFF2DWhTNEopSJ6V8zSQ$OUgaTyhqz7yXUbAwhMtQbM9ly6fwbKttf5ACKaxQ2Jc", "administrateur");
-      
+INSERT INTO Commande (date, statut, user_id) 
+VALUES
+("2024-04-01 14:30:00", "En cours", 1),
+("2024-04-02 10:15:00", "Livrée", 2);
+INSERT INTO DetailCommande (commande_id, vin_id, quantite) 
+VALUES
+(1, 3, 2),  -- Commande 1 : 2 bouteilles de vin ID 3
+(1, 5, 1),  -- Commande 1 : 1 bouteille de vin ID 5
+(2, 2, 3),  -- Commande 2 : 3 bouteilles de vin ID 2
+(2, 4, 1); 

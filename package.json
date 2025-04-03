@@ -1,14 +1,14 @@
 {
-  "name": "my-project",
+  "name": "originaldigital",
   "version": "0.0.1",
   "description": "",
-  "homepage": "https://github.com/{{ org }}/my-project#readme",
+  "homepage": "https://github.com/{{ org }}/originaldigital#readme",
   "bugs": {
-    "url": "https://github.com/{{ org }}/my-project/issues"
+    "url": "https://github.com/{{ org }}/originaldigital/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/{{ org }}/my-project.git"
+    "url": "git+https://github.com/{{ org }}/originaldigital.git"
   },
   "workspaces": ["client", "server"],
   "scripts": {
