@@ -46,7 +46,15 @@ class VinRepository {
   async read(id: number) {
     // Execute the SQL SELECT query to retrieve a specific item by its ID
     const [rows] = await databaseClient.query<Rows>(
-      "select * from Vin where id = ?",
+      `SELECT 
+      v.*, 
+      vc.cepage_id, 
+      vc.proportion, 
+      c.nom AS cepage_nom
+   FROM Vin v
+   LEFT JOIN VinCepage vc ON v.id = vc.vin_id
+   LEFT JOIN Cepage c ON vc.cepage_id = c.id
+   WHERE v.id = ?`,
       [id],
     );
 
@@ -56,7 +64,14 @@ class VinRepository {
 
   async readAll() {
     // Execute the SQL SELECT query to retrieve all items from the "item" table
-    const [rows] = await databaseClient.query<Rows>("select * from Vin");
+    const [rows] = await databaseClient.query<Rows>(`SELECT 
+      v.*, 
+      vc.cepage_id, 
+      vc.proportion, 
+      c.nom AS cepage_nom
+   FROM Vin v
+   LEFT JOIN VinCepage vc ON v.id = vc.vin_id
+   LEFT JOIN Cepage c ON vc.cepage_id = c.id`);
 
     // Return the array of items
     return rows as Vin[];

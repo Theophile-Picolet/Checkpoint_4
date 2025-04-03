@@ -43,7 +43,7 @@ const add: RequestHandler = async (req, res, next) => {
     // Extract the item data from the request body
     const reservation = {
       type: req.body.type,
-      user_id: req.body.user_id,
+      user_id: req.user.id,
       visite_id: req.body.visite_id || null,
       degustation_id: req.body.degustation_id || null,
     };

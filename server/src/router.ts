@@ -163,4 +163,68 @@ router.delete(
 );
 
 /* ************************************************************************* */
+import vinCepageAction from "./modules/VinCepage/vinCepageAction";
+
+router.get("/api/proportion/:id", vinCepageAction.getCepagesVin);
+router.post(
+  "/api/proportion/",
+  auth.verify,
+  auth.checkIfAdmin,
+  vinCepageAction.add,
+);
+router.put(
+  "/api/proportion",
+  auth.verify,
+  auth.checkIfAdmin,
+  vinCepageAction.editProportion,
+);
+router.delete(
+  "/api/proportion/:id",
+  auth.verify,
+  auth.checkIfAdmin,
+  vinCepageAction.destroy,
+);
+
+/* ************************************************************************* */
+import detailCommandeAction from "./modules/detailCommande.tsx/detailCommandeAction";
+
+router.get(
+  "/api/panier/:id",
+  auth.verify,
+  auth.checkIfAdminOrUser,
+  detailCommandeAction.getVins,
+);
+router.get(
+  "/api/panier",
+  auth.verify,
+  auth.checkIfAdminOrUser,
+  detailCommandeAction.browse,
+);
+router.get(
+  "/api/panier/:id/prix",
+  auth.verify,
+  auth.checkIfAdminOrUser,
+  detailCommandeAction.getPrixTotal,
+);
+
+router.post(
+  "/api/panier",
+  auth.verify,
+  auth.checkIfAdminOrUser,
+  detailCommandeAction.add,
+);
+router.put(
+  "/api/panier",
+  auth.verify,
+  auth.checkIfAdmin,
+  detailCommandeAction.edit,
+);
+router.delete(
+  "/api/panier/:id",
+  auth.verify,
+  auth.checkIfAdmin,
+  detailCommandeAction.destroy,
+);
+
+/* ************************************************************************* */
 export default router;
