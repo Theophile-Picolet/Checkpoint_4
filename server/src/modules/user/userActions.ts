@@ -91,4 +91,12 @@ const destroy: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browse, read, add, edit, destroy };
+const sendSuccessStatus: RequestHandler = async (req, res, next) => {
+  try {
+    res.sendStatus(200);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default { browse, read, add, edit, destroy, sendSuccessStatus };

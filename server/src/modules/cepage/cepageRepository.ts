@@ -39,7 +39,7 @@ class CepageRepository {
     const [rows] = await databaseClient.query<Rows>("select * from Cepage");
 
     // Return the array of items
-    return rows as Cepage[];
+    return rows;
   }
 
   // The U of CRUD - Update operation

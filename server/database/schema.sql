@@ -11,11 +11,13 @@ create table User (
     id SERIAL PRIMARY KEY,
     type VARCHAR(100),
     description TEXT,
+    image_url TEXT,
     prix DECIMAL(10,2)
 );
 CREATE TABLE Degustation (
     id SERIAL PRIMARY KEY,
     description TEXT,
+    image_url TEXT,
     prix DECIMAL(10,2)
 );
 create table Reservation (
@@ -37,11 +39,14 @@ CREATE TABLE Vin (
     prix DECIMAL(10,2) NOT NULL,
     accordMet VARCHAR(255),
     temperatureDegustation DECIMAL(4,1),
+    image_src TEXT,
     elevage VARCHAR(50)
 );
 CREATE TABLE Cepage (
     id SERIAL PRIMARY KEY,
-    nom VARCHAR(50) UNIQUE
+    nom VARCHAR(50) UNIQUE,
+    image_url TEXT,
+    description TEXT
 );
 CREATE TABLE VinCepage (
     vin_id INT REFERENCES Vin(id) ON DELETE CASCADE,
@@ -61,17 +66,28 @@ CREATE TABLE DetailCommande (
     quantite INT CHECK (quantite > 0),
     PRIMARY KEY (commande_id, vin_id)
 );
- INSERT INTO Vin (type, appellation, nom, millesime, alcoometrie, description, prix, accordMet, temperatureDegustation, elevage)
+ INSERT INTO Vin (type, appellation, nom, millesime, alcoometrie, description, prix, accordMet, temperatureDegustation, image_src, elevage)
       VALUES 
-      ('Rouge', 'Côte-Rôtie', 'La Mouline', 2018, '13.5%', 'Vin d\'exception, arômes de fruits noirs et d\'épices.', 150, 'Viande rouge, gibier, fromage affiné', 16.0, '42 mois fût de chêne'),
-      ('Rouge', 'Côte-Rôtie', 'La Turque', 2019, '14%', 'Notes florales et épicées, intense et structuré.', 160, 'Canard, truffe, bœuf', 16.0, '40 mois fût de chêne'),
-      ('Rouge', 'Côte-Rôtie', 'La Landonne', 2020, '14.5%', 'Robe sombre, tannins puissants, finale persistante.', 180, 'Agneau, fromages affinés', 16.0, '42 mois fût de chêne'),
-      ('Rouge', 'Saint-Joseph', 'Lieu-dit Saint-Joseph', 2021, '13%', 'Arômes de fruits noirs, bouche ample et élégante.', 50, 'Charcuterie, viandes grillées', 15.0, '18 mois fût de chêne'),
-      ('Blanc', 'Condrieu', 'La Doriane', 2022, '13.5%', 'Vin blanc puissant, arômes d\'abricot et de fleurs blanches.', 90, 'Poisson, crustacés, cuisine asiatique', 10.0, '12 mois fût de chêne'),
-      ('Blanc', 'Saint-Joseph', 'Les Granits', 2021, '13%', 'Texture soyeuse, arômes de fruits jaunes et noisettes.', 40, 'Volaille, fromage à pâte molle', 12.0, '12 mois fût de chêne')
-      ;
-       INSERT INTO Cepage (nom) VALUES ('Syrah'), ('Viognier'), ('Marsanne'), ('Roussanne')
-      ;
+       ('Rouge', 'Côte-Rôtie', 'La Mouline', 2018, '13.5%', 'Vin d\'exception, arômes de fruits noirs et d\'épices.', 150, 'Viande rouge, gibier, fromage affiné', 16.0, 'https://vintageselect31.fr/1220-large_default/cote-rotie-chateau-d-ampuis-rouge-maison-e-guigal.jpg', '42 mois fût de chêne'),
+    ('Rouge', 'Côte-Rôtie', 'La Turque', 2019, '14%', 'Notes florales et épicées, intense et structuré.', 160, 'Canard, truffe, bœuf', 16.0, 'https://vintageselect31.fr/1220-large_default/cote-rotie-chateau-d-ampuis-rouge-maison-e-guigal.jpg', '40 mois fût de chêne'),
+    ('Rouge', 'Côte-Rôtie', 'La Landonne', 2020, '14.5%', 'Robe sombre, tannins puissants, finale persistante.', 180, 'Agneau, fromages affinés', 16.0, 'https://vintageselect31.fr/1220-large_default/cote-rotie-chateau-d-ampuis-rouge-maison-e-guigal.jpg', '42 mois fût de chêne'),
+    ('Rouge', 'Saint-Joseph', 'Lieu-dit Saint-Joseph', 2021, '13%', 'Arômes de fruits noirs, bouche ample et élégante.', 50, 'Charcuterie, viandes grillées', 15.0, 'https://vintageselect31.fr/1220-large_default/cote-rotie-chateau-d-ampuis-rouge-maison-e-guigal.jpg', '18 mois fût de chêne'),
+    ('Blanc', 'Condrieu', 'La Doriane', 2022, '13.5%', 'Vin blanc puissant, arômes d\'abricot et de fleurs blanches.', 90, 'Poisson, crustacés, cuisine asiatique', 10.0, 'https://vintageselect31.fr/1220-large_default/cote-rotie-chateau-d-ampuis-rouge-maison-e-guigal.jpg', '12 mois fût de chêne'),
+    ('Blanc', 'Saint-Joseph', 'Les Granits', 2021, '13%', 'Texture soyeuse, arômes de fruits jaunes et noisettes.', 40, 'Volaille, fromage à pâte molle', 12.0, 'https://vintageselect31.fr/1220-large_default/cote-rotie-chateau-d-ampuis-rouge-maison-e-guigal.jpg', '12 mois fût de chêne'),
+    ('Rouge', 'Crozes-Hermitage', 'Les Meysonniers', 2021, '13%', 'Vin fruité et épicé avec une belle souplesse.', 28, 'Charcuterie, grillades, fromages doux', 15.0, 'https://vintageselect31.fr/1220-large_default/cote-rotie-chateau-d-ampuis-rouge-maison-e-guigal.jpg', '12 mois fût de chêne'),
+    ('Rouge', 'Saint-Joseph', 'Les Challeys', 2020, '13.5%', 'Fruité intense, notes poivrées et tannins équilibrés.', 32, 'Agneau, volaille rôtie, fromages affinés', 15.0, 'https://vintageselect31.fr/1220-large_default/cote-rotie-chateau-d-ampuis-rouge-maison-e-guigal.jpg', '12 mois fût de chêne'),
+    ('Rouge', 'Gigondas', 'Domaine du Grand Montmirail', 2019, '14%', 'Vin puissant aux arômes de fruits noirs et d\'épices.', 38, 'Viandes rouges grillées, gibiers, plats épicés', 16.0, 'https://vintageselect31.fr/1220-large_default/cote-rotie-chateau-d-ampuis-rouge-maison-e-guigal.jpg', '18 mois fût de chêne'),
+    ('Rouge', 'Vacqueyras', 'Les Christins', 2021, '13.5%', 'Structure élégante, notes de fruits rouges et réglisse.', 35, 'Charcuterie, viandes mijotées', 15.0, 'https://vintageselect31.fr/1220-large_default/cote-rotie-chateau-d-ampuis-rouge-maison-e-guigal.jpg', '12 mois fût de chêne'),
+    ('Blanc', 'Côtes-du-Rhône', 'Les Plaines', 2021, '13%', 'Belle rondeur, notes florales et d\'amandes grillées.', 22, 'Volaille, crustacés, plats en sauce', 11.0, 'https://vintageselect31.fr/1220-large_default/cote-rotie-chateau-d-ampuis-rouge-maison-e-guigal.jpg', '6 mois fût de chêne'),
+    ('Blanc', 'Saint-Péray', 'Les Sauvagères', 2020, '13.5%', 'Fruité intense, minéralité et légère amertume.', 30, 'Poissons en sauce, cuisine asiatique', 12.0, 'https://vintageselect31.fr/1220-large_default/cote-rotie-chateau-d-ampuis-rouge-maison-e-guigal.jpg', '8 mois fût de chêne'),
+    ('Blanc', 'Condrieu', 'Les Terrasses de l’Empire', 2022, '14%', 'Vin blanc élégant, arômes de pêche et de violette.', 45, 'Foie gras, cuisine asiatique, fromages crémeux', 10.0, 'https://vintageselect31.fr/1220-large_default/cote-rotie-chateau-d-ampuis-rouge-maison-e-guigal.jpg', '12 mois fût de chêne'),
+    ('Blanc', 'Saint-Joseph', 'Circa', 2021, '13%', 'Vin blanc vif et minéral, notes de fruits blancs et fleurs.', 28, 'Coquillages, poissons grillés, fromages à pâte molle', 11.0, 'https://vintageselect31.fr/1220-large_default/cote-rotie-chateau-d-ampuis-rouge-maison-e-guigal.jpg', '10 mois fût de chêne');
+    INSERT INTO Cepage (nom, image_url, description) 
+VALUES
+('Syrah', 'https://example.com/syrah.jpg', 'Cépage rouge emblématique du Rhône, puissant et épicé.'),
+('Viognier', 'https://example.com/viognier.jpg', 'Cépage blanc aromatique, aux notes florales et fruitées.'),
+('Marsanne', 'https://example.com/marsanne.jpg', 'Cépage blanc riche, apportant rondeur et complexité.'),
+('Roussanne', 'https://example.com/roussanne.jpg', 'Cépage blanc élégant, équilibré entre vivacité et richesse.');
 INSERT INTO VinCepage (vin_id, cepage_id, proportion)
       VALUES 
       (1, 1, 89.00), 
@@ -82,24 +98,37 @@ INSERT INTO VinCepage (vin_id, cepage_id, proportion)
       (4, 1, 100.00),
       (5, 2, 100.00),
       (6, 3, 65.00), 
-      (6, 4, 35.00)
-      ;
-      INSERT INTO Visite (type, description, prix) 
+      (6, 4, 35.00),
+       (7, 1, 100.00), 
+    (8, 1, 100.00), 
+    (9, 1, 70.00), 
+    (9, 3, 30.00), 
+    (10, 1, 80.00), 
+    (10, 3, 20.00), 
+     (11, 3, 50.00), 
+    (11, 4, 50.00), 
+    (12, 3, 65.00), 
+    (12, 4, 35.00), 
+    (13, 2, 100.00), 
+    (14, 3, 60.00), 
+    (14, 4, 40.00)
+    ;
+      INSERT INTO Visite (type, description, prix, image_url) 
       VALUES 
-      ('Visite des vignes du domaine', 'Découverte du terroir et des parcelles emblématiques.',25),
-      ('Visite des caves', 'Immersion dans les caves pour comprendre l’élevage des vins.',25),
-      ('Visite vignes et caves', 'Expérience complète : vignoble, caves et dégustation incluse.',65)
+      ('Visite des vignes du domaine', 'Découverte du terroir et des parcelles emblématiques.',25, 'exemple.url'),
+      ('Visite des caves', "Immersion dans les caves pour comprendre l’élevage des vins.",25, 'exemple.url'),
+      ('Visite vignes et caves', 'Expérience complète : vignoble, caves et dégustation incluse.',65, 'exemple.url')
       ;
-       INSERT INTO Degustation (description, prix) 
+       INSERT INTO Degustation (description, prix, image_url) 
       VALUES 
-      ('Dégustation des grandes cuvées du domaine', 60),
-      ('Atelier accords mets & vins', 70),
-      ('Dégustation découverte des vins du Rhône', 40)
+      ('Dégustation des grandes cuvées du domaine', 60, 'exemple.url'),
+      ('Atelier accords mets & vins', 70, 'exemple.url'),
+      ('Dégustation découverte des vins du Rhône', 40, 'exemple.url')
       ;
       INSERT INTO User (first_name, last_name, email, tel, hashed_password, role)
 VALUES
 ("Théo", "Phile", "theo@gmail.com",  "0665875421","$argon2id$v=19$m=19456,t=2,p=1$RfhFF2DWhTNEopSJ6V8zSQ$OUgaTyhqz7yXUbAwhMtQbM9ly6fwbKttf5ACKaxQ2Jc", "administrateur"),
-("Chris", "Tophe", "chris@gmail.com",  "0665455421","$argon2id$v=19$m=19456,t=2,p=1$RfhFF2DWhTNEopSJ6V8zSQ$OUgaTyhqz7yXUbAwhMtQbM9ly6fwbKttf5ACKaxQ2Jc", "administrateur");
+("Chris", "Tophe", "chris@gmail.com",  "0665455421","$argon2id$v=19$m=19456,t=2,p=1$RfhFF2DWhTNEopSJ6V8zSQ$OUgaTyhqz7yXUbAwhMtQbM9ly6fwbKttf5ACKaxQ2Jc", "utilisateur");
 INSERT INTO Commande (date, statut, user_id) 
 VALUES
 ("2024-04-01 14:30:00", "En cours", 1),

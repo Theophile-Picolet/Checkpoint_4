@@ -1,0 +1,10 @@
+.vin-section {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.vin-card {
+  width: 10rem;
+  text-align: center;
+}

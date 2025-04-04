@@ -19,6 +19,19 @@ router.delete(
   auth.checkIfAdmin,
   userActions.destroy,
 );
+router.get(
+  "/api/checkAdmin",
+  auth.verify,
+  auth.checkIfAdmin,
+  userActions.sendSuccessStatus,
+);
+
+router.get(
+  "/api/checkAdminOrUser",
+  auth.verify,
+  auth.checkIfAdminOrUser,
+  userActions.sendSuccessStatus,
+);
 /* ************************************************************************* */
 import degustationAction from "./modules/degustation/degustationAction";
 
@@ -227,4 +240,6 @@ router.delete(
 );
 
 /* ************************************************************************* */
+router.get("/api/logout", auth.logout);
+
 export default router;

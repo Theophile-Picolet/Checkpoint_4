@@ -7,11 +7,23 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 // Import the main app component
 import App from "./App";
+import Cave from "./pages/Cave";
 import Dashboard from "./pages/Dashboard";
 import ErrorPage from "./pages/ErrorPage";
 import HomePage from "./pages/HomePage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import { AuthProvider } from "./services/AuthContext";
+import Degustation from "./pages/Degustation";
+import Visite from "./pages/Visite";
+import {
+  getDegustation,
+  getProportionId,
+  getVin,
+  getVinId,
+  getVisite,
+} from "./services/request";
+import VinDetail from "./components/VinDetail";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
@@ -28,10 +40,46 @@ const router = createBrowserRouter([
     element: <App />, // Renders the App component for the home page
     errorElement: <ErrorPage />,
     children: [
-      { path: "/", element: <HomePage /> },
+      {
+        path: "/",
+        element: <HomePage />,
+        loader: async () => ({
+          vin: await getVin(),
+        }),
+      },
       { path: "/dashboard", element: <Dashboard /> },
       { path: "/signup", element: <Signup /> },
       { path: "/login", element: <Login /> },
+      {
+        path: "/cave",
+        element: <Cave />,
+        loader: async () => ({
+          vin: await getVin(),
+        }),
+      },
+      {
+        path: "/vin/:id",
+        element: <VinDetail />,
+        loader: async ({ params }) => ({
+          vinID: await getVinId(Number(params.id)),
+          proportionId: await getProportionId(Number(params.id)),
+          vins: await getVin(),
+        }),
+      },
+      {
+        path: "/degustation",
+        element: <Degustation />,
+        loader: async () => ({
+          degustation: await getDegustation(),
+        }),
+      },
+      {
+        path: "/visite",
+        element: <Visite />,
+        loader: async () => ({
+          visite: await getVisite(),
+        }),
+      },
     ],
   },
   // Try adding a new route! For example, "/about" with an About component
@@ -48,7 +96,9 @@ if (rootElement == null) {
 // Render the app inside the root element
 createRoot(rootElement).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>,
 );
 

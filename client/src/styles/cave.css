@@ -1,0 +1,33 @@
+.cave img {
+  width: auto;
+  height: 880px;
+  border-radius: var(--radius);
+}
+
+.cave h1 {
+  color: var(--three-color);
+}
+.cave h2 {
+  padding-top: 2rem;
+  font-family: var(--note-font);
+  font-size: 50px;
+}
+
+.cave {
+  text-align: center;
+}
+
+.cave .vin-note {
+  font-family: var(--note-font);
+  font-size: 28px;
+  color: var(--three-color);
+  font-weight: 700;
+}
+
+.cave .vin-card img:hover {
+  transform: scale(1.15);
+  transition: transform 0.2s ease-in-out;
+}
+.cave .vin-card {
+  max-width: 203px;
+}

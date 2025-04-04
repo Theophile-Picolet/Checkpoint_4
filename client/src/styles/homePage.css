@@ -1,0 +1,58 @@
+.homepage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  img {
+    max-height: 800px;
+  }
+
+  h2 {
+    margin-top: 1rem;
+    font-size: 32px;
+    color: var(--three-color);
+  }
+  p {
+    text-align: center;
+    margin-top: 1rem;
+  }
+}
+
+@media only screen and (min-width: 1650px) {
+  .homepage {
+    font-size: 18px;
+    p {
+      max-width: 75ch;
+    }
+  }
+
+  .landscape {
+    display: flex;
+    overflow: scroll;
+    scrollbar-color: var(--three-color) var(--navbar-color);
+    overflow-y: hidden;
+    max-width: 100%;
+    img {
+      max-width: 55%;
+    }
+  }
+  .cuvee {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5rem;
+  }
+  .homepage h2 {
+    font-size: 32px;
+    color: var(--three-color);
+    margin-bottom: 3rem;
+    margin-top: 3rem;
+  }
+  .homepage .vin-note {
+    font-family: var(--note-font);
+    font-size: 34px;
+    color: var(--three-color);
+    font-weight: 700;
+  }
+  .homepage-last {
+    margin-bottom: 3rem;
+  }
+}

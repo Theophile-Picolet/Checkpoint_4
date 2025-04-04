@@ -4,6 +4,10 @@ export type {};
 declare global {
   namespace Express {
     export interface Request {
+      auth: {
+        name: string;
+        isAdmin: boolean;
+      };
       user: {
         role: string;
         id: number;
